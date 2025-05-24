@@ -2,7 +2,7 @@
 GO/fyne file manager.
 
 FMAN is a 2 panel file manager written in the GO language and using
-the fyno.io graphical toolkit.
+the fyne.io graphical toolkit.
 It is designed in the manner of Midnight Commander and Total Commander.
 
 
