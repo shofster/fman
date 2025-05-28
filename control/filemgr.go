@@ -45,6 +45,7 @@ func CreatePath(parent string, win *fyne.Window, cb func(string, string, error))
 	cc := widget.NewLabel("path name is required")
 	cc.Hide()
 	choice.OnChanged = func(s string) {
+		selected = s
 		cc.Show()
 	}
 
