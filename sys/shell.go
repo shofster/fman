@@ -17,7 +17,11 @@ import (
 
 */
 
-var windowsShell = [...]string{"cmd.exe", "/K", "start", "/D", "<DIR>", "cmd.exe"}
+// var powerShell = [...]string{"cmd.exe", "/C", "start", "pwsh", "-NoExit", "-NoLogo", "-WorkingDirectory", "<DIR>"}
+var powerShell = [...]string{"cmd.exe", "/C", "start", "pwsh", "-NoExit", "-NoLogo", "-WorkingDirectory", "<DIR>"}
+
+// []string{"pwsh", "-NoExit", "-NoLogo", "-WorkingDirectory", "<DIR>", "-Command", "& { . $PROFILE }"}
+var cmdShell = [...]string{"cmd.exe", "/K", "start", "/D", "<DIR>", "cmd.exe"}
 var linuxShell = [...]string{"gnome-terminal", "--working-directory=<DIR>"}
 var darwinShell = [...]string{"bash", "-c", "open -a Terminal \"<DIR>\""}
 var defaultShell = [...]string{"sh", "term"}
@@ -34,7 +38,11 @@ func ShellCommand(dir string) []string {
 
 	switch runtime.GOOS {
 	case "windows":
-		return g(windowsShell[0:])
+
+		if prefs.PowerShell {
+			return g(powerShell[0:])
+		}
+		return g(cmdShell[0:])
 	case "darwin":
 		return g(darwinShell[0:])
 	case "linux":

@@ -27,7 +27,7 @@ import (
 	"strings"
 )
 
-var prefs *Prefs
+var prefs Prefs
 
 // these are the widgets
 // for both Panels to use (as needed)
@@ -53,6 +53,7 @@ type Prefs struct {
 	Browse         []string    `json:"browse"`
 	Text           int         `json:"text"`
 	Font           int         `json:"font"`
+	PowerShell     bool        `json:"powershell"`
 	Path           string
 	hidden         *widget.Check
 	monospace      *widget.Check
@@ -207,6 +208,7 @@ func LoadPrefs(path string) (*Prefs, error) {
 	if p.Browser == "" || p.Browse == nil || len(p.Browse) < 1 {
 		setDefaultBrowsing(p)
 	}
+	prefs = *p
 	return p, err
 }
 
@@ -290,7 +292,8 @@ func NewPrefs(path string) *Prefs {
 	p.History = make([]string, 0)
 	p.Favorites = make([]string, 0)
 	p.Assoc = make([]FileAssoc, 0)
-	p.Text = 16
+	p.Text = 20
+	p.PowerShell = false
 	setDefaultAssociations(&p)
 	setDefaultEditCmd(&p)
 	setDefaultBatchCmd(&p)
